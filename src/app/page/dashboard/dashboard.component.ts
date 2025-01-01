@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
+import {ContentListComponent} from '../../component/content-list/content-list.component';
+import {CommonModule, NgFor} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +13,17 @@ import {Router, RouterLink} from '@angular/router';
         <a routerLink="/orders" class="list-group-item list-group-item-action">
           Manage Orders
         </a>
+        <h1 class="ql-align-center">Hello World</h1>
+        <p class="ql-align-center"><br></p>
+        <p class="ql-align-center">Thanks for coming to my TED Talk</p>
+
+        <app-content-list></app-content-list>
       </div>
     </div>
   `,
   imports: [
-    RouterLink
+    RouterLink,
+    ContentListComponent
   ]
 })
 export class DashboardComponent {

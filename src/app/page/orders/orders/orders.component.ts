@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Order, OrdersService} from '../../../services/order.service';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -9,7 +10,7 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule, FormsModule],
   template: `
     <div class="container mt-5">
-      <h2 class="mb-4">Orders</h2>
+      <h2>Orders</h2>
       <ul class="list-group mb-4">
         <li
           *ngFor="let order of orders"
@@ -18,7 +19,10 @@ import {CommonModule} from '@angular/common';
           <div>
             <strong>{{ order.name }}</strong> - {{ order.description }}
           </div>
-          <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">Delete</button>
+          <div>
+            <button class="btn btn-info btn-sm me-2" (click)="viewOrder(order.id)">View</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">Delete</button>
+          </div>
         </li>
       </ul>
       <div class="card p-4 shadow">
@@ -46,7 +50,7 @@ export class OrdersComponent {
   orders: Order[] = [];
   newOrder: Partial<Order> = {};
 
-  constructor(private ordersService: OrdersService) {
+  constructor(private ordersService: OrdersService, private router: Router) {
     this.loadOrders();
   }
 
@@ -65,5 +69,9 @@ export class OrdersComponent {
   deleteOrder(id: number) {
     this.ordersService.deleteOrder(id);
     this.loadOrders();
+  }
+
+  viewOrder(id: number) {
+    this.router.navigate([`/orders/${id}`]);
   }
 }
