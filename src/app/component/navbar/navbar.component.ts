@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, NgIf],
   template: `
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0a4275;">
       <div class="container-fluid">
-        <a class="navbar-brand" routerLink="/">User Portal</a>
+        <a class="navbar-brand" routerLink="/"><img width="30" height="35" class="logo" src="logo.png"></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -23,7 +24,7 @@ import { RouterModule } from '@angular/router';
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+              <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Articles</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" routerLink="/orders" routerLinkActive="active">Manage Orders</a>
@@ -41,8 +42,12 @@ import { RouterModule } from '@angular/router';
               >
                 {{ username }}
               </a>
+
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+                <li><a *ngIf="isLoggedIn" class="dropdown-item" routerLink="/dashboard">Dashboard</a></li>
+                <li><a *ngIf="isLoggedIn" class="dropdown-item" (click)="logout()">Logout</a></li>
+
+                <li><a *ngIf="!isLoggedIn" class="dropdown-item" (click)="viewLogin()">Login</a></li>
               </ul>
             </li>
           </ul>
@@ -61,9 +66,15 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
   username = sessionStorage.getItem('username') || 'Guest';
+  isLoggedIn = sessionStorage.getItem('isLoggedIn') || false;
 
   logout() {
     sessionStorage.clear();
     location.reload();
   }
+
+  viewLogin() {
+    //route user to Login page
+  }
+
 }

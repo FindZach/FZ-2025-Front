@@ -1,0 +1,13 @@
+.fire-text {
+  color: #ff4500;
+  background: linear-gradient(45deg, #ff4500, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ice-text {
+  color: #1e90ff;
+  background: linear-gradient(45deg, #1e90ff, #87cefa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
